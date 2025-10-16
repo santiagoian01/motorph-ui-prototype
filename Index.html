@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MotorPH HR & Employee System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- Role Selection -->
+  <div id="roleSelect" class="flex flex-col items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-80 text-center">
+      <h1 class="text-2xl font-bold mb-6">MotorPH Portal</h1>
+      <button onclick="showScreen('loginEmployee')" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded mb-3">Log in as Employee</button>
+      <button onclick="showScreen('loginHR')" class="w-full bg-green-600 hover:bg-green-700 text-white p-2 rounded">Log in as HR</button>
+      <p class="text-sm mt-4 text-gray-600">New user? <a href="#" onclick="showScreen('signup')" class="text-blue-600">Sign up here</a></p>
+    </div>
+  </div>
+
+  <!-- Employee Login -->
+  <div id="loginEmployee" class="hidden flex flex-col items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-80">
+      <h1 class="text-2xl font-bold text-center mb-6">Employee Login</h1>
+      <input type="text" placeholder="Employee ID" class="w-full border border-gray-300 p-2 rounded mb-4" />
+      <input type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-6" />
+      <button onclick="login('employee')" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">Login</button>
+      <button onclick="showScreen('roleSelect')" class="mt-4 text-blue-600 text-sm w-full text-center">← Back</button>
+    </div>
+  </div>
+
+  <!-- HR Login -->
+  <div id="loginHR" class="hidden flex flex-col items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-80">
+      <h1 class="text-2xl font-bold text-center mb-6">HR Login</h1>
+      <input type="text" placeholder="HR ID" class="w-full border border-gray-300 p-2 rounded mb-4" />
+      <input type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-6" />
+      <button onclick="login('hr')" class="w-full bg-green-600 hover:bg-green-700 text-white p-2 rounded">Login</button>
+      <button onclick="showScreen('roleSelect')" class="mt-4 text-blue-600 text-sm w-full text-center">← Back</button>
+    </div>
+  </div>
+
+  <!-- Signup Screen -->
+  <div id="signup" class="hidden flex flex-col items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-lg w-80">
+      <h1 class="text-2xl font-bold text-center mb-6">Sign Up</h1>
+      <input type="text" placeholder="Employee ID" class="w-full border border-gray-300 p-2 rounded mb-4" />
+      <input type="date" placeholder="Date of Birth" class="w-full border border-gray-300 p-2 rounded mb-6" />
+      <button onclick="alert('Signup successful! Please log in.'); showScreen('roleSelect');" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">Submit</button>
+      <button onclick="showScreen('roleSelect')" class="mt-4 text-blue-600 text-sm w-full text-center">← Back</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard" class="hidden min-h-screen">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 id="dashboardTitle" class="text-xl font-bold">Welcome</h1>
+      <button onclick="showScreen('roleSelect')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Logout</button>
+    </header>
+
+    <div class="p-6 grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+      <button id="btnTimeIn" onclick="alert('Timed In!')" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-xl shadow">Time In</button>
+      <button id="btnTimeOut" onclick="alert('Timed Out!')" class="bg-red-500 hover:bg-red-600 text-white p-4 rounded-xl shadow">Time Out</button>
+      <button id="btnLeave" onclick="showScreen('leave')" class="bg-yellow-400 hover:bg-yellow-500 text-white p-4 rounded-xl shadow">Leave Request</button>
+      <button id="btnPayslip" onclick="showScreen('payslip')" class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-xl shadow">Payslip</button>
+      <button id="btnPayroll" onclick="showScreen('payroll')" class="bg-purple-500 hover:bg-purple-600 text-white p-4 rounded-xl shadow hidden">Payroll Calculator</button>
+      <button id="btnApproval" onclick="showScreen('approvals')" class="bg-gray-600 hover:bg-gray-700 text-white p-4 rounded-xl shadow hidden">Leave Approvals</button>
+    </div>
+  </div>
+
+  <!-- Leave Filing -->
+  <div id="leave" class="hidden p-6 max-w-md mx-auto">
+    <h2 class="text-xl font-bold mb-4">Leave Request</h2>
+    <form class="space-y-4">
+      <select class="w-full border p-2 rounded">
+        <option>Vacation Leave</option>
+        <option>Sick Leave</option>
+        <option>Emergency Leave</option>
+      </select>
+      <input type="date" class="w-full border p-2 rounded" />
+      <textarea placeholder="Reason" class="w-full border p-2 rounded"></textarea>
+      <button type="button" onclick="alert('Leave Submitted!')" class="w-full bg-blue-600 text-white p-2 rounded">Submit</button>
+    </form>
+    <button onclick="showScreen('dashboard')" class="mt-6 text-blue-600">← Back to Dashboard</button>
+  </div>
+
+  <!-- Payslip -->
+  <div id="payslip" class="hidden p-6 max-w-3xl mx-auto">
+    <h2 class="text-xl font-bold mb-4">Payslip</h2>
+    <select class="border p-2 rounded mb-4">
+      <option>Select Cutoff</option>
+      <option>Oct 1–15, 2025</option>
+      <option>Oct 16–31, 2025</option>
+    </select>
+    <table class="w-full border-collapse border border-gray-300 text-sm mb-4">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="border p-2">Description</th>
+          <th class="border p-2">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="border p-2">Basic Pay</td><td class="border p-2 text-right">₱25,000</td></tr>
+        <tr><td class="border p-2">Overtime</td><td class="border p-2 text-right">₱2,000</td></tr>
+        <tr><td class="border p-2">Tax Deduction</td><td class="border p-2 text-right">₱1,500</td></tr>
+        <tr class="font-semibold bg-gray-50"><td class="border p-2">Net Pay</td><td class="border p-2 text-right">₱25,500</td></tr>
+      </tbody>
+    </table>
+    <button class="bg-blue-600 text-white p-2 rounded">Download PDF</button>
+    <button onclick="showScreen('dashboard')" class="ml-4 text-blue-600">← Back</button>
+  </div>
+
+  <!-- Payroll Calculator (HR only) -->
+  <div id="payroll" class="hidden p-6 max-w-md mx-auto">
+    <h2 class="text-xl font-bold mb-4">Payroll Calculator</h2>
+    <form class="space-y-4">
+      <select id="employeeSelect" class="w-full border p-2 rounded" onchange="setSalary()">
+        <option value="">Select Employee</option>
+        <option value="25000">Melissa Cruz – Payroll Specialist</option>
+        <option value="22000">John Dela Rosa – HR Assistant</option>
+        <option value="28000">Angela Martinez – Accounting Staff</option>
+        <option value="20000">Maria Reyes – Employee</option>
+      </select>
+      <input id="hoursWorked" type="number" placeholder="Hours Worked" class="w-full border p-2 rounded" />
+      <input id="overtimeHours" type="number" placeholder="Overtime Hours" class="w-full border p-2 rounded" />
+      <input id="deductions" type="number" placeholder="Deductions (₱)" class="w-full border p-2 rounded" />
+      <button type="button" onclick="computePayroll()" class="w-full bg-purple-600 text-white p-2 rounded">Compute</button>
+    </form>
+
+    <div id="payrollResult" class="mt-6 hidden bg-white p-4 rounded-xl shadow">
+      <h3 class="font-bold mb-2">Payroll Summary</h3>
+      <p>Base Salary: <span id="baseSalary" class="font-semibold"></span></p>
+      <p>Overtime Pay: <span id="otPay" class="font-semibold"></span></p>
+      <p>Deductions: <span id="deduct" class="font-semibold"></span></p>
+      <p class="mt-2 text-lg font-bold">Net Pay: <span id="netPay" class="text-green-600"></span></p>
+    </div>
+
+    <button onclick="showScreen('dashboard')" class="mt-6 text-blue-600">← Back</button>
+  </div>
+
+  <!-- Leave Approvals (HR only) -->
+  <div id="approvals" class="hidden p-6 max-w-3xl mx-auto">
+    <h2 class="text-xl font-bold mb-4">Leave Approvals</h2>
+    <table class="w-full border-collapse border border-gray-300 text-sm mb-4">
+      <thead class="bg-gray-200">
+        <tr><th class="border p-2">Employee</th><th class="border p-2">Type</th><th class="border p-2">Dates</th><th class="border p-2">Actions</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border p-2">Maria Reyes</td>
+          <td class="border p-2">Vacation</td>
+          <td class="border p-2">Oct 21–23</td>
+          <td class="border p-2">
+            <button onclick="alert('Approved!')" class="bg-green-500 text-white px-3 py-1 rounded">Approve</button>
+            <button onclick="alert('Rejected!')" class="bg-red-500 text-white px-3 py-1 rounded ml-2">Reject</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button onclick="showScreen('dashboard')" class="text-blue-600">← Back to Dashboard</button>
+  </div>
+
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll("body > div").forEach(div => div.classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function login(role) {
+      showScreen('dashboard');
+      const isHR = role === 'hr';
+      document.getElementById('dashboardTitle').textContent = isHR ? "Welcome, HR Staff" : "Welcome, Employee";
+      document.getElementById('btnPayroll').classList.toggle('hidden', !isHR);
+      document.getElementById('btnApproval').classList.toggle('hidden', !isHR);
+    }
+
+    let currentSalary = 0;
+    function setSalary() {
+      const sel = document.getElementById('employeeSelect');
+      currentSalary = Number(sel.value);
+    }
+
+    function computePayroll() {
+      if (!currentSalary) return alert("Please select an employee first!");
+      const hours = Number(document.getElementById('hoursWorked').value) || 0;
+      const ot = Number(document.getElementById('overtimeHours').value) || 0;
+      const deductions = Number(document.getElementById('deductions').value) || 0;
+
+      // Assume 22 work days, 8 hours/day = 176 hours per month
+      const hourlyRate = currentSalary / 176;
+      const overtimePay = ot * hourlyRate * 1.25;
+      const gross = hourlyRate * hours + overtimePay;
+      const net = gross - deductions;
+
+      document.getElementById('baseSalary').textContent = `₱${gross.toFixed(2)}`;
+      document.getElementById('otPay').textContent = `₱${overtimePay.toFixed(2)}`;
+      document.getElementById('deduct').textContent = `₱${deductions.toFixed(2)}`;
+      document.getElementById('netPay').textContent = `₱${net.toFixed(2)}`;
+      document.getElementById('payrollResult').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
